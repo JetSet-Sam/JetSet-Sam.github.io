@@ -283,7 +283,7 @@
         { name: "Zimbabwe", code: "ZW" }
       ];
       console.log("List of countries in the world", countries);
-      sessionStorage.setItem('coun_arr', JSON.stringify(countries));
+      sessionStorage.setItem("coun_arr", JSON.stringify(countries));
 
       function getRandomIntInclusive(min, max) {
         min = Math.ceil(min);
@@ -292,15 +292,15 @@
       }
 
       function ord_lst() {
-        const json = sessionStorage.getItem('coun_arr');
+        const json = sessionStorage.getItem("coun_arr");
         const list = JSON.parse(json);
         const names = list.map(i => i.name);
-        const inst = document.querySelector('.instructions');
-        inst.innerHTML = '';
+        const inst = document.querySelector(".instructions");
+        inst.innerHTML = "";
 
         for (let i = 0; i < 50; i++) {
-          let cl = document.createElement('li');
-          cl.innerText = names[getRandomIntInclusive(0,243)];
+          let cl = document.createElement("li");
+          cl.innerText = names[getRandomIntInclusive(0, 243)];
           inst.appendChild(cl);
         }
       }
