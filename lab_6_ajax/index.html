@@ -18,14 +18,19 @@
       function loadData() {
         fetch("ajax_sample.json")
           .then(res => res.json())
-          .then(res => res.map(c => '<li>'+ c.code +" "+ c.name + '</li>'))
-          .then(document.querySelector('.content').innerHTML = '<ol class ="Countrylist"></ol>')
-          .then(names=>{
-            for (i = 0; i<15; i++){
-              document.querySelector(".Countrylist").innerHTML += names[Math.round(Math.random() * names.length)]
-            }
+          .then(res => res.map(c => "<li>" + c.code + ", " + c.name + "</li>"))
+          .then(data => {
+            document.querySelector(".content").innerHTML =
+              '<ol class ="Countrylist"></ol>';
+            return data;
           })
-      } 
+          .then(names => {
+            for (i = 0; i < 15; i++) {
+              document.querySelector(".Countrylist").innerHTML +=
+                names[Math.round(Math.random() * names.length)];
+            }
+          });
+      }
     </script>
   </body>
 </html>
