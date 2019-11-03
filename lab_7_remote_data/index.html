@@ -1,33 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Test AJAX page</title>
+    <link rel="stylesheet" type="text/css" href="./lab_styles.css" />
+  </head>
 
-<head>
-  <title>Test AJAX page</title>
-  <link rel="stylesheet" type="text/css" href="./lab_styles.css">
-</head>
-
-<body>
-  <div class="container">
-    <div class="wrapper">
-      <div class="header">UMD Bus Routes</div>
-      <button class="button" onclick="loadData()">Load Some JSON</button>
-      <div class="content"></div>
-      <div class="footer"></div>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <div class="header">UMD Bus Routes</div>
+        <button class="button" onclick="loadData()">Load Some JSON</button>
+        <div class="content"></div>
+        <div class="footer"></div>
+      </div>
     </div>
-  </div>
-  <script>
-    function loadData() {
-      fetch('https://api.umd.io/')
-        .then(res => res.json())
-        .then(res => {
-          console.log(res)
-          // you can now work in this area
+    <script>
+      function loadData() {
+        fetch("https://api.umd.io/v0/bus/routes")
+          .then(res => res.json())
+          .then(res => res.map(c => c))
 
-          return res;
-        })
-        .then(data => document.querySelector(".content").innerText = data);
-    }
-  </script>
-</body>
+          .then(res => {
+            let ul = document.createElement("ul");
+            let codes = document.querySelector(".content");
+            codes.innerHTML = '';
 
+            for (let i = 0; i < res.length; i++) {
+              let li = document.createElement("li");
+              let text = res[i].title;
+              let bus_route = res[i].route_id;
+              let n = text.indexOf(bus_route);
+              let modstring = text;
+              console.log(bus_route);
+
+              if (n > -1) {
+                modstring = text.substr(
+                  res[i].route_id.length,
+                  res[i].title.length
+                );
+              }
+              text = document.createTextNode(modstring);
+              routenum = document.createTextNode(bus_route);
+              li.append(routenum);
+              li.append(" ");
+              li.append(text);
+              ul.append(li);
+            }
+            codes.append(ul);
+            return res;
+          })
+
+          .then(res => {
+            let found = res.find(function(element) {
+              return element.route_id == 118;
+            });
+            let codes = document.querySelector(".header");
+            
+            for (let i = 0; i < res.length; i++) {
+              text = document.createTextNode(res[i].title);
+              codes.innerHTML = "UMD Bus Routes for " + found.title;
+            }
+            console.log(res);
+          })
+      }
+    </script>
+  </body>
 </html>
