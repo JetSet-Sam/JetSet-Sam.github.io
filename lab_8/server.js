@@ -49,7 +49,7 @@ app.get('/api', (req, res) => {
       console.log(data);
       const info = data.filter(x => x.dept_id === 'INST')
       console.log(info)
-      const array = info.map(r=>r.course_id+': '+r.name)
+      const array = info.map(r=>r.course_id +': '+r.name)
       res.send({ data: array });
     })
     .catch((err) => {
