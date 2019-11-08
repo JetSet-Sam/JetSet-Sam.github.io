@@ -47,7 +47,10 @@ app.get('/api', (req, res) => {
     .then((r) => r.json())
     .then((data) => {
       console.log(data);
-      res.send({ data: data });
+      const info = data.filter(x => x.dept_id === 'INST')
+      console.log(info)
+      const array = info.map(r=>r.course_id+': '+r.name)
+      res.send({ data: array });
     })
     .catch((err) => {
       console.log(err);
